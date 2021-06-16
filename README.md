@@ -12,3 +12,35 @@ their students.</div></li>
 <h3>ScreenShots-</h3>
 
 <img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/HomePage.jpg">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/RegistrationPage.jpg">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/loginPage.jpg">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/userDashboard.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/RegistrationPage.jpg">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createquiz1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createquiz2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createquiz3.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takequiz1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takequiz2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takequiz3.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createquizhistory1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createquizhistory2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createassignment1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createassignment2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takeassignment1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takeassignment2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/takeassignment3.png">
+
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createassignmenthistory1.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createassignmenthistory2.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/createassignmenthistory3.png">
+<img src="https://github.com/dmudit88/One-Source-Point-for-Learning-Management-System/blob/main/projectImages/resources.png">
+
+
+
+
+
+
+
+
+
+
