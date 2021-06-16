@@ -10,4 +10,4 @@ their students.</div></li>
   Website hosted here : <a href="https://acade-app.herokuapp.com/">AcadE</a>
 </div>
 
-<img src="/projectImages/HomePage">
+[!image][/projectImages.HomePage.jpg]
