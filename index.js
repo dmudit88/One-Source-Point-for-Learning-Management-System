@@ -4,6 +4,7 @@ const path=require('path');
 const bodyParser = require('body-parser');
 var nodemailer = require("nodemailer");
 const multer  = require('multer');
+require('dotenv').config()
 var storage=multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,'uploads');
@@ -15,7 +16,7 @@ var storage=multer.diskStorage({
 });
 var upload=multer({storage:storage});
 
-mongoose.connect('mongodb://localhost:27017/AcadE', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://'+process.env.MONGO_USER_NAME+':'+process.env.MONGO_USER_PASS+'@cluster0.p4rym.mongodb.net/'+process.env.MONGO_DATABASE_NAME+'?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -43,10 +44,12 @@ var title=" ";
 const app=express();
 var choice,headin,desc;
 var smtpTransport = nodemailer.createTransport({
-    service: '',//<=Your email service provider
+    host: process.env.MAIL_HOST,//<=Your email service provider
+    port: process.env.MAIL_PORT,
+    secure: true,
     auth: {
-        user:'',//<=Your email-id in string form
-        pass: ''//<=Your email-id password in string form
+        user:process.env.MAIL_USER,//<=Your email-id in string form
+        pass: process.env.MAIL_PASS//<=Your email-id password in string form
     }
 });
 
@@ -130,7 +133,7 @@ app.post('/signup/auth',(req,res,next)=>{
     }else{
         User.findOne({ email: req.body.email }, function (err, user) {
                 if(user){
-                    console.log('usr database');
+                    // console.log('usr database');
                     choice="Error";
                     headin="Error";
                     desc="User with this email id already registered in database.Redirecting you to the login page";
@@ -138,7 +141,7 @@ app.post('/signup/auth',(req,res,next)=>{
                     res.render("error",{Choice:choice,err:headin,description:desc,redlink:redaddress});
                     next([err]);
                 }else{
-                    var rand=Math.floor((Math.random() * 100) + 54);
+                    var rand=Math.floor((Math.random() * 10000000) + 57);
                     var Token=new mongoose.model("Token",tokenSchema);
                     const temptoken=new Token({
                         randomId:rand,
@@ -153,15 +156,16 @@ app.post('/signup/auth',(req,res,next)=>{
             
                     
                     mailOptions={
-                            from:'muditd@zoho.com',
+                            from:process.env.MAIL_USER,
                             to : JSON.stringify(req.body.email),
                             subject : "Please confirm your Email account",
                             html : "Hello,<br> Please Click on the link to verify your email.You have 10 minutes.<br><a href="+link+">Click here to verify</a>"
                     }
-                    console.log(mailOptions);
+                    // console.log(mailOptions);
                     smtpTransport.sendMail(mailOptions, function(error, response){
-                            console.log('mail sent');
+                            // console.log('mail sent');
                             if(error){
+                                console.log(error);
                                 choice="Error";
                                 headin="Error";
                                 desc="Error sending the mail. Redirecting you to signup page";
@@ -178,14 +182,14 @@ app.post('/signup/auth',(req,res,next)=>{
                     
             
             
-                console.log(req.body);
+                // console.log(req.body);
                 }
         });
 }
 });        
 app.get('/verify',(req,res)=>{
     var rand=parseInt(req.query.id,10);
-    console.log(req.query.id);
+    // console.log(req.query.id);
     var redaddress="3;";
     Token.findOne({randomId:rand},(err,toku)=>{
         if(!toku){
@@ -204,7 +208,7 @@ app.get('/verify',(req,res)=>{
             });
             obj.save();
             Token.deleteMany({email:toku.email},(err)=>{
-                console.log(err);
+                // console.log(err);
             });
             choice="Success";
             headin="Success";
@@ -215,7 +219,7 @@ app.get('/verify',(req,res)=>{
     });
 });
 app.post('/login/auth',(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     var redaddress="3;";
     User.findOne({email:req.body.email},(err,user)=>{
         if(!user){
@@ -258,7 +262,7 @@ app.post('/createquiz',(req,res)=>
     quiz.quizTitle=title;
     quiz.timeLimit=time;
     quiz.code=Math.floor(100000 + Math.random() * 900000);
-    console.log(title);
+    // console.log(title);
     var link="?id="+req.query.id;
     res.render("list",{link:link,aitems:items,
         t:title
@@ -282,8 +286,8 @@ app.post('/list',(req,res)=>{
     //item.ans=req.body.correctans;
     items.push(item);
     items.push(quiz);
-    console.log(items);
-    console.log(quiz);
+    // console.log(items);
+    // console.log(quiz);
     //res.redirect('list');
     var link="?id="+req.query.id;
     res.render('list',{link:link, aitems:items,t:title});    
@@ -310,7 +314,7 @@ app.post('/aftercreate',(req,res)=>{
         questions: items
     });
     obj.save();
-    console.log(obj.id);
+    // console.log(obj.id);
     var link="?id="+req.query.id;
     items.length=0;
     User.findOne({_id:req.query.id},(err,user)=>{
@@ -318,7 +322,7 @@ app.post('/aftercreate',(req,res)=>{
             User.findByIdAndUpdate(req.query.id,
                 {"$push":{"quizzes":{quizid:obj.id,title:quiz.quizTitle}}},
                 (err,managerparent)=>{
-                    console.log(managerparent);
+                    // console.log(managerparent);
                 });
         }
         //{"$push":{"quizzes":obj.id}}
@@ -333,8 +337,8 @@ app.get('/takequiz',(req,res)=>{
 app.post('/takequiz',(req,res)=>{
    
 
-    console.log(quiz.code);
-    console.log(req.body.qcode);
+    // console.log(quiz.code);
+    // console.log(req.body.qcode);
     /*
     if(req.body.qcode==quiz.code)
     res.redirect("/views/quizApp.ejs");
@@ -384,7 +388,7 @@ app.post('/quizdisplay',(req,res)=>{
     buttonName="submit";
     else
     buttonName="next";
-    console.log(quizfile.length);
+    // console.log(quizfile.length);
     if(index<quizfile.length)
     { 
         res.render('quizdisplay',{link: link ,questions:quizfile[index],btname:buttonName,t:timelimit,quizid:req.query.quizid});
@@ -454,8 +458,8 @@ app.post('/uploadfile',upload.single('myFile'),(req,res,next)=>{
     const file=req.file;
     req.body.toString;
     const title=req.body.title;
-    console.log(title);
-    console.log(req.body);
+    // console.log(title);
+    // console.log(req.body);
     var link="?id="+req.query.id;
     if(!file){
         const error=new Error('Please upload a file');
@@ -488,8 +492,8 @@ app.get('/takeassignment',(req,res)=>{
 app.post('/takeassignment',(req,res)=>{
    
 
-    console.log(quiz.code);
-    console.log(req.body.qcode);
+    // console.log(quiz.code);
+    // console.log(req.body.qcode);
     /*
     if(req.body.qcode==quiz.code)
     res.redirect("/views/quizApp.ejs");
